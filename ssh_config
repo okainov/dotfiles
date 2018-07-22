@@ -1,0 +1,5 @@
+Host *
+    # For avoiding disconnects in case of idle
+    # Defaults are 0, so need to set 
+    ServerAliveInterval 60
+    ServerAliveCountMax 10
