@@ -1,20 +1,53 @@
+[core]
+	editor = vim
+	autocrlf = input
 [user]
 	name = Oleg Kainov
 	email = kainov.oleg@gmail.com
 
-[alias]
-	a = add
-	st = status
-	cm = commit
-	df = diff
-	dfc = diff --cached
-	co = checkout
-	can = commit --amend --no-edit
-	ri = rebase --interactive
-	lds = log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=short
-	graph = log --all --graph --pretty=format:'%C(auto)%h%C(auto)%d %s %C(blue)(%aN, %ad)' --date=short
+[color]
+	ui = true
+[color "decorate"]
+	tag = green
 
+[alias]
+	# Basic commands
+	a = add
+	br = branch
+	co = checkout
+	cp = cherry-pick
+	st = status
+
+	# Diff
+	df = diff
+	diffc = diff --cached
+	dfc = diff --cached
+
+	# Commit
+	cm = commit -s
+	ca = commit --amend
+	can = commit --amend --no-edit
+
+	# Rebase
+	ri = rebase -i
+	ra = rebase --autostash
+	ria = rebase -i --autostash
+
+	# Log
+	logcolor = log --decorate
+	last = log -1
+	graph = log --graph --decorate --oneline --all --format=format:'%C(yellow)%h %ad%C(auto)%d %Creset%s%Cblue [%an]' --date=short
+	lds = log --pretty=format:"%C(yellow)%h\\ %ad%C(auto)%d\\ %Creset%s%Cblue\\ [%an]" --decorate --date=short
+
+	# List of git aliases
 	la = "!git config -l | grep alias | cut -c 7-"
 
+	d = difftool
+	ps = push -u
+
+[merge]
+	tool = meld
 [sequence]
 	editor = rebase-editor
+[gitreview]
+	remote = origin
