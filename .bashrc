@@ -61,7 +61,7 @@ fi
 
 if [ "$color_prompt" = yes ]; then
     # From Git for Windows, removed MSYSTEM variable
-    PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u@\h:\[\e[33m\]\w\[\e[0m\]'"${_ps1_symbol}"'\$ '
+    PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u@\h:\[\e[33m\]\w\[\e[0m\]\[\033[36m\]$(__git_ps1)\[\033[00m\]\$ '
     # Default Debian
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
     # Just some modified colors
