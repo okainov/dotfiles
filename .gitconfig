@@ -1,12 +1,18 @@
 [core]
 	editor = vim
 	autocrlf = input
+
 [user]
 	name = Oleg Kainov
 	email = kainov.oleg@gmail.com
+	#signingkey = AAAAAA
+
+#[commit]
+#	gpgsign = true
 
 [color]
 	ui = true
+
 [color "decorate"]
 	tag = green
 
@@ -45,9 +51,11 @@
 	d = difftool
 	ps = push -u
 
-[merge]
-	tool = meld
 [sequence]
 	editor = rebase-editor
+
 [gitreview]
 	remote = origin
+
+[receive]
+	denyCurrentBranch = warn
