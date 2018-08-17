@@ -78,17 +78,28 @@ __prompt_command() {
 
     local git_branch="${Cyan}$(__git_ps1)"
 
-    PS1="${Green}\u@\h:${Yel}\w${git_branch}${RCol}\\$ "
+    # If root, just print the host in red. Otherwise, print the current user
+    # and host in green.
+    if [[ $EUID == 0 ]]; then
+        user_color=$Red
+        prompt_color=$Red
+    else
+        user_color=$Green
+        prompt_color=$RCol
+    fi
+    local user="${user_color}\\u@\\h"
+
+    PS1="${user}:${Yel}\w${git_branch}${prompt_color}\\$ ${RCol}"
 
     # Fancy statuses from https://stackoverflow.com/a/34812608/1657819
     local FancyX='\342\234\227'
     local Checkmark='\342\234\223'
     # Exit code of last command
-    local status="${White}$EXIT"
+    local status="${White}$EXIT "
     if [[ $EXIT == 0 ]]; then
-        status+=" $BGreen$Checkmark "
+        status+="$BGreen$Checkmark "
     else
-        status+=" $Red$FancyX "
+        status+="$Red$FancyX "
     fi
     status+="\t " # Current time
 
