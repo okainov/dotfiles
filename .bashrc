@@ -59,13 +59,30 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+__prompt_command() {
+    local EXIT="$?" # This needs to be first
+    PS1=""
+
+    local RCol='\[\e[0m\]' # Reset colors
+
+    local Red='\[\e[0;31m\]'
+    local LRed='\[\e[0;91m\]'
+    local BGreen='\[\e[1;32m\]'
+    local Green='\[\e[0;32m\]'
+    local Yel='\[\e[0;33m\]'
+    local BYel='\[\e[1;33m\]'
+    local BBlue='\[\e[1;34m\]'
+    local Pur='\[\e[0;35m\]'
+    local Cyan='\[\e[0;36m\]'
+    local White='\[\e[01;37m\]'
+
+    local git_branch="${Cyan}$(__git_ps1)"
+
+    PS1="${Green}\u@\h:${Yel}\w${git_branch}${RCol}\\$ "
+}
+
 if [ "$color_prompt" = yes ]; then
-    # From Git for Windows, removed MSYSTEM variable
-    PS1='\[\e]0;\w\a\]\n\[\e[32m\]\u@\h:\[\e[33m\]\w\[\e[0m\]\[\033[36m\]$(__git_ps1)\[\033[00m\]\$ '
-    # Default Debian
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    # Just some modified colors
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;31m\]\u@\h\[\033[00m\]:\[\033[01;39m\]\w\[\033[00m\]\$ '
+    PROMPT_COMMAND=__prompt_command
 else
     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
 fi
