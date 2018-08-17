@@ -42,8 +42,9 @@
 	# Log
 	logcolor = log --decorate
 	last = log -1
-	graph = log --graph --decorate --oneline --all --format=format:'%C(yellow)%h %ad%C(auto)%d %Creset%s%Cblue [%an]' --date=short
-	lds = log --pretty=format:"%C(yellow)%h\\ %ad%C(auto)%d\\ %Creset%s%Cblue\\ [%an]" --decorate --date=short
+	graph = log --graph --decorate --oneline --all --format=format:'%C(yellow)%h %ad%C(auto)%d %C(reset)%s%C(magenta dim) [%an]' --date=short
+	lds = log --pretty=format:'%C(yellow)%h %ad%C(auto)%d %C(reset)%s%C(magenta dim) [%an]' --date=short --decorate
+
 
 	# List of git aliases
 	la = "!git config -l | grep alias | cut -c 7-"
