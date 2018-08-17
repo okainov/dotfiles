@@ -30,7 +30,7 @@
 	dfc = diff --cached
 
 	# Commit
-	cm = commit -s
+	cm = commit # -s
 	ca = commit --amend
 	can = commit --amend --no-edit
 
