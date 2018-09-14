@@ -75,6 +75,7 @@ __prompt_command() {
     local Pur='\[\e[0;35m\]'
     local Cyan='\[\e[0;36m\]'
     local White='\[\e[01;37m\]'
+    local Black='\[\e[01;30m\]'
 
     local git_branch="${Cyan}$(__git_ps1)"
 
@@ -92,18 +93,23 @@ __prompt_command() {
     PS1="${user}:${Yel}\w${git_branch}${prompt_color}\\$ ${RCol}"
 
     # Fancy statuses from https://stackoverflow.com/a/34812608/1657819
-    local FancyX='\342\234\227'
-    local Checkmark='\342\234\223'
+    local FancyX='\[\342\234\]\227'
+    local Checkmark='\[\342\234\]\223'
     # Exit code of last command
-    local status="${White}$EXIT "
+    local status="${Black}$EXIT "
     if [[ $EXIT == 0 ]]; then
-        status+="$BGreen$Checkmark "
+        status+="${Green}$Checkmark "
     else
-        status+="$Red$FancyX "
+        status+="${Red}$FancyX "
     fi
     status+="\t " # Current time
 
     PS1="$status$PS1"
+
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+	local venv="(${VIRTUAL_ENV##*/}) "
+	PS1="$venv$PS1"
+    fi
 }
 
 if [ "$color_prompt" = yes ]; then
