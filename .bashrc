@@ -7,7 +7,7 @@
 
 # don't put duplicate lines or lines starting with space in the history.
 # See bash(1) for more options
-HISTCONTROL=ignoreboth
+HISTCONTROL=ignoreboth:erasedups
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -17,10 +17,7 @@ shopt -s cmdhist
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=1000000
 HISTFILESIZE=1000000
-HISTIGNORE='ls:bg:fg'
-
-# Save commands in history immediately instead of by exit only
-PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+HISTIGNORE='bg:fg'
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -59,8 +56,24 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
+# Proper history saving and sharing between
+# several terminals
+# https://unix.stackexchange.com/a/48116/227771
+_bash_history_sync() {
+  builtin history -a         #1
+  builtin history -c         #3
+  builtin history -r         #4
+}
+history() {                  #5
+  _bash_history_sync
+  builtin history "$@"
+}
+
 __prompt_command() {
     local EXIT="$?" # This needs to be first
+
+    _bash_history_sync
+
     PS1=""
 
     local RCol='\[\e[0m\]' # Reset colors
